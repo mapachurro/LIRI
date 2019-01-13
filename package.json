@@ -1,5 +1,5 @@
 {
-  "name": "LIRI",
+  "name": "liri",
   "version": "1.0.0",
   "description": "Language Interpretation and Recognition Interface",
   "main": "app.js",
@@ -11,7 +11,7 @@
     "url": "git+https://github.com/mapachurro/LIRI.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Oliver JL Renwick",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/mapachurro/LIRI/issues"
@@ -20,6 +20,9 @@
   "dependencies": {
     "axios": "^0.18.0",
     "dotenv": "^6.2.0",
-    "keys": "^0.1.2"
-  }
+    "keys": "^0.1.2",
+    "lolcatjs": "^2.3.2",
+    "node-spotify-api": "^1.0.7"
+  },
+  "devDependencies": {}
 }
