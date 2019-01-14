@@ -10,7 +10,12 @@ var Spotify = require('node-spotify-api');
 
 var command = process.argv[2];
 
-fs = require('fs');
+var file = require('file-system');
+
+var fs = require('fs');
+
+var node = require('node');
+
 
 //   * You should then be able to access your keys information like so
 
@@ -91,6 +96,8 @@ console.log(songName)
 
   var spotify = new Spotify(keys.spotify);
    
+
+  function spotification(){
   spotify.search({ type: 'track', query: songName, limit: 1 }, function(err, data) {
     if (err) {
       return console.log('Error occurred: ' + err);
@@ -101,30 +108,28 @@ console.log(songName)
   console.log("Preview: " + data.tracks.items[0].preview_url); 
   console.log("Name of Album: " + data.tracks.items[0].album.name); 
   });
-    break;
 
+}
+spotification();
+    break;
 
   // Here's the OMDB code
   case "movie-this":
-
     // code block
     // Store all of the arguments in an array
     var nodeArgs = process.argv;
-
     // Create an empty variable for holding the movie name
     var movieName = "";
-
     // Loop through all the words in the node argument
     // And do a little for-loop magic to handle the inclusion of "+"s
     for (var i = 3; i < nodeArgs.length; i++) {
-
       if (i > 3 && i < nodeArgs.length) {
         movieName = movieName + "+" + nodeArgs[i];
       }
       else {
         movieName += nodeArgs[i];
       }
-    }
+    };
     // Then run a request with axios to the OMDB API with the movie specified, with an if loop 
     // to provide for the user potentially not inputting information
     if (movieName !== "") {
@@ -135,6 +140,7 @@ console.log(songName)
         }
       );
     }
+  
     else {
       console.log("If you haven't watched 'Mr. Nobody,' then you should: <http://www.imdb.com/title/tt0485947/>")
       console.log("It's on Netflix!")
@@ -145,6 +151,15 @@ console.log(songName)
   case "do-what-it-says":
     console.log("do what it says!")
     // code block
+    var content;
+    fs.readFile('./random.txt', function read(err, data) {
+        if (err) {
+            throw err;
+        }
+        content = data;
+        
+    });
+
     break;
   default:
     // code block
