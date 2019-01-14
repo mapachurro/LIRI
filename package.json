@@ -23,6 +23,7 @@
     "file-system": "^2.2.2",
     "keys": "^0.1.2",
     "lolcatjs": "^2.3.2",
+    "node": "^11.6.0",
     "node-spotify-api": "^1.0.7",
     "sys": "0.0.1"
   },
