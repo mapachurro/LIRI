@@ -12,28 +12,32 @@ var command = process.argv[2];
 
 var fs = require('fs');
 
+var specs = "";
+
+// Make a function to bring in the user's specifications on top of the command
+function findSpecs(){
+for (var i = 3; i < process.argv.length; i++) {
+
+    if (i > 3 && i < process.argv.length) {
+      specs = specs + "+" + process.argv[i];
+    }
+    else {
+      specs += process.argv[i];
+    }
+  }
+  return(specs);
+
+}
+findSpecs();
+
 
 // Spotify function
 function spotification(){
+  console.log(specs);
   // code block
 
-// Store all of the arguments in an array
-var nodeArgs = process.argv;
-
-// Create an empty variable for holding the song name
-var songName = "";
-
-// Loop through all the words in the node argument
-// And do a little for-loop magic to handle the inclusion of "+"s
-for (var i = 3; i < nodeArgs.length; i++) {
-
-  if (i > 3 && i < nodeArgs.length) {
-    songName = songName + "+" + nodeArgs[i];
-  }
-  else {
-    songName += nodeArgs[i];
-  }
-}
+// Bring in the user's specifications
+var songName = specs;
 
 if (songName === ""){
   songName = "(I saw) The Sign"
@@ -57,23 +61,9 @@ console.log("Name of Album: " + data.tracks.items[0].album.name);
 }
 
 function concertThis(){
-  // Store all of the arguments in an array
-  var nodeArgs = process.argv;
 
-  // Create an empty variable for holding the movie name
-  var bandName = "";
-
-  // Loop through all the words in the node argument
-  // And do a little for-loop magic to handle the inclusion of "+"s
-  for (var i = 3; i < nodeArgs.length; i++) {
-
-    if (i > 3 && i < nodeArgs.length) {
-      bandName = bandName + "+" + nodeArgs[i];
-    }
-    else {
-      bandName += nodeArgs[i];
-    }
-  }
+  // Bring in user specs
+  var bandName = specs;
 
   console.log("Here's some upcoming concerts!")
 
@@ -92,20 +82,10 @@ function concertThis(){
 
   function movieThis(){
     // code block
-    // Store all of the arguments in an array
-    var nodeArgs = process.argv;
-    // Create an empty variable for holding the movie name
-    var movieName = "";
-    // Loop through all the words in the node argument
-    // And do a little for-loop magic to handle the inclusion of "+"s
-    for (var i = 3; i < nodeArgs.length; i++) {
-      if (i > 3 && i < nodeArgs.length) {
-        movieName = movieName + "+" + nodeArgs[i];
-      }
-      else {
-        movieName += nodeArgs[i];
-      }
-    };
+
+    // Bring in user specs
+    var movieName = specs;
+   
     // Then run a request with axios to the OMDB API with the movie specified, with an if loop 
     // to provide for the user potentially not inputting information
     if (movieName !== "") {
@@ -123,19 +103,23 @@ function concertThis(){
     }
   }
 
-  // The do-what-it-says function
-  function random(){
-    // code block
-    var content;
-    fs.readFile('./random.txt', function read(err, data) {
-        if (err) {
-            throw err;
-        }
-        content = data.toString();
-        spotification(content);
-    });
-  }
-
+    // The do-what-it-says function
+    function random(){
+      // code block
+  
+      var content;
+      fs.readFile('./random.txt', function read(err, data) {
+          if (err) {
+              throw err;
+          }
+          content = data.toString();
+          splitter = content.split(',')
+          command = splitter[0];
+          specs = splitter[1];
+          liri(command,splitter)
+      });
+    }
+  
 
 function liri(){
 
@@ -164,8 +148,8 @@ switch (command) {
     // code block
     console.log("That's not an option. Please choose a valid option.")
 }
-
 // End liri function
 }
 
 liri();
+
